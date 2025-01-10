@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "788775129611",
+    "project_id": "instazubi-29d17",
+    "storage_bucket": "instazubi-29d17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788775129611:android:93b03e37c5cbf321782d0e",
+        "android_client_info": {
+          "package_name": "com.possiblyfront"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788775129611-tuvbe1l1c4gh0nvslj6pai8pk0epvvq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.possiblyfront",
+            "certificate_hash": "4e24195a3e98d79366dbf7d1e1e89c4ed1f2e4d2"
+          }
+        },
+        {
+          "client_id": "788775129611-3c3oue8fsb71krc5ksv9595tbifqlptg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3B59MGMkT0skjL6DwxnNFMgkZlGNiDI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788775129611-3c3oue8fsb71krc5ksv9595tbifqlptg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "788775129611-q0dnovnu2m0f54j04hpeisoq1qcdkbj4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.possiblyfront"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

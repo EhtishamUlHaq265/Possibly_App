@@ -1,0 +1,69 @@
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+# Disable Flipper
+flipper_config = FlipperConfiguration.disabled
+
+# Use frameworks if specified in the environment variables
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+use_modular_headers!
+
+target 'possiblyfront' do
+  config = use_native_modules!
+  
+  # Pods for the main target
+  pod 'GoogleMaps'
+ 
+  pod 'FirebaseCore'
+  pod 'FirebaseCoreInternal', :modular_headers => true
+
+    # React Native Permissions Pods
+    permissions_path = '../node_modules/react-native-permissions/ios'
+
+  # Flags change depending on the environment values.
+  flags = get_default_flags()
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    :hermes_enabled => flags[:hermes_enabled],
+    :fabric_enabled => flags[:fabric_enabled],
+    :flipper_configuration => flipper_config,  # Flipper configuration passed here
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  target 'possiblyfrontTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+      end
+    end
+    
+    # React Native post-install script
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false
+    )
+    
+    # Xcode 12.5 M1 post-install workaround
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  end
+end
